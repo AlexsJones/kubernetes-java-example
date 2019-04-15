@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: webapp
+  namespace: default
+  labels:
+    app: webapp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      affinity:
+containers:
+  - name: webapp
+    image: tibbar/webapp:v1
+    imagePullPolicy: Always
+    livenessProbe:
+      tcpSocket:
+        port: transport
+      initialDelaySeconds: 20
+    readinessProbe:
+      httpGet:
+        scheme: HTTPS
+        path: /
+        port: 8083
+      initialDelaySeconds: 20
+      timeoutSeconds: 5
+    resources:
+      requests:
+        memory: "0.5Gi"
+      limits:
+        memory: "1Gi"
+    ports:
+      - containerPort: 8083
+        name: http-webapp
+        protocol: TCP

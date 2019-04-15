@@ -1,0 +1,36 @@
+#apiVersion: networking.istio.io/v1alpha3
+#kind: VirtualService
+#metadata:
+#  name: webapp
+#  namespace: default
+#spec:
+#  hosts:
+#    - webapp
+#  tcp:
+#    - route:
+#        - destination:
+#            host: webapp
+#            port:
+#              number: 8083
+
+
+#### Below is an example of how you could make this accessible from an external gateway when using istio #####
+
+
+#
+#apiVersion: networking.istio.io/v1alpha3
+#kind: VirtualService
+#metadata:
+#  name: webapp
+#spec:
+#  hosts:
+#    - webapp.example.com
+#  gateways:
+#    - mesh
+#    - gateway-apps
+#  http:
+#    - route:
+#        - destination:
+#            host: webapp
+#            port:
+#              number: 8083

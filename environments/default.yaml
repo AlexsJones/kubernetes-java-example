@@ -1,0 +1,10 @@
+replicas: 1
+image: tibbar/webapp:v1
+namespace: default
+memory:
+  min: 0.5Gi
+  max: 1Gi
+#### Optional #####
+
+#affinitykey: node_type
+#affinityselector: webapp
