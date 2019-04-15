@@ -12,38 +12,37 @@ spec:
       labels:
         app: webapp
     spec:
-      affinity:
   {{- if .affinitykey }}
-nodeAffinity:
-  requiredDuringSchedulingIgnoredDuringExecution:
-    nodeSelectorTerms:
-      - matchExpressions:
-          - key: {{.affinitykey}}
-            operator: In
-            values:
-              - {{.affinityselector}}
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: {{.affinitykey}}
+                    operator: In
+                    values:
+                      - {{.affinityselector}}
   {{- end }}
-containers:
-  - name: webapp
-    image: {{.image}}
-    imagePullPolicy: Always
-    livenessProbe:
-      tcpSocket:
-        port: transport
-      initialDelaySeconds: 20
-    readinessProbe:
-      httpGet:
-        scheme: HTTPS
-        path: /
-        port: 8083
-      initialDelaySeconds: 20
-      timeoutSeconds: 5
-    resources:
-      requests:
-        memory: "{{.memory.min}}"
-      limits:
-        memory: "{{.memory.max}}"
-    ports:
-      - containerPort: 8083
-        name: http-webapp
-        protocol: TCP
+        containers:
+          - name: webapp
+            image: {{.image}}
+            imagePullPolicy: Always
+            livenessProbe:
+              tcpSocket:
+                port: transport
+              initialDelaySeconds: 20
+            readinessProbe:
+              httpGet:
+                scheme: HTTPS
+                path: /
+                port: 8083
+              initialDelaySeconds: 20
+              timeoutSeconds: 5
+            resources:
+              requests:
+                memory: "{{.memory.min}}"
+              limits:
+                memory: "{{.memory.max}}"
+            ports:
+              - containerPort: 8083
+                name: http-webapp
+                protocol: TCP
