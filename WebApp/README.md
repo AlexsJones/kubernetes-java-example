@@ -5,11 +5,13 @@ Spring-boot
 
 ## Build an image
 
-`docker build -t myimage.`
+- Run the bootJar gradle task first.
+
+- `docker build -t myimage.`
 
 and to run
 
-`docker run -p 8083:8083 <imageid>`
+- `docker run -p 8083:8083 <imageid>`
 
 
 ## Usage
